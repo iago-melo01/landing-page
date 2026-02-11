@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import './Areas.css';
 
 const AREAS_DATA = [
@@ -69,6 +70,12 @@ function Areas() {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
   };
 
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: handleNext,
+    onSwipedRight: handlePrev,
+    trackMouse: true,
+  });
+
   return (
     <section id="areas" className="areas">
       <div className="areas__container">
@@ -99,7 +106,7 @@ function Areas() {
           </div>
         </div>
 
-        <div className="areas__carousel-wrapper">
+        <div {...swipeHandlers} className="areas__carousel-wrapper">
           <div
             className="areas__carousel"
             style={{
