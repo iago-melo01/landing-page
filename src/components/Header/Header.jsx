@@ -3,7 +3,6 @@ import './Header.css';
 
 const NAV_ITEMS = [
   { id: 'areas', label: 'ÁREAS DE ATUAÇÃO' },
-  { id: 'advogados', label: 'ADVOGADOS' },
   { id: 'sobre', label: 'SOBRE O ESCRITÓRIO' },
 ];
 

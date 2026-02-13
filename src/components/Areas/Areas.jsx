@@ -5,33 +5,33 @@ import './Areas.css';
 const AREAS_DATA = [
   {
     id: 1,
-    title: 'Imóveis',
-    description: 'Orientação e apoio jurídico em negociação e elaboração de contratos e demais instrumentos que envolvam imóveis, seja na compra e venda, locação, usucapião e regularização fundiária.',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80',
+    title: 'Direito Tributário',
+    description: 'Assessoria jurídica em matéria tributária: planejamento fiscal, defesa em execuções fiscais, recuperação de créditos, habeas corpus tributário, parcelamentos e consultoria em obrigações tributárias.',
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80',
   },
   {
     id: 2,
-    title: 'Inventários e Sucessões',
-    description: 'Assessoria jurídica em procedimentos litigiosos ou consensuais, tanto na seara judicial quanto extrajudicial, envolvendo transferência de bens e direitos em inventários e partilhas.',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80',
+    title: 'Direito Previdenciário',
+    description: 'Atuação em aposentadorias, pensões, benefícios por incapacidade, auxílio-doença, revisões de benefícios, mandados de segurança previdenciários e questões junto ao INSS.',
+    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80',
   },
   {
     id: 3,
-    title: 'Criminal',
-    description: 'Atendimento especializado para entender o seu problema e auxiliar. Acompanhamento em delegacia e audiência de custódia. Pedido de liberdade, prisão domiciliar e Habeas Corpus.',
+    title: 'Direito Penal',
+    description: 'Defesa criminal em todas as instâncias. Acompanhamento em delegacia e audiência de custódia. Pedido de liberdade, prisão domiciliar, Habeas Corpus e atuação em inquéritos e processos criminais.',
     image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&q=80',
   },
   {
     id: 4,
-    title: 'Família',
-    description: 'Atuação em divórcio, separação, guarda de menores, pensão alimentícia, partilha de bens e demais questões que envolvam o direito de família.',
-    image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=400&q=80',
+    title: 'Direito Empresarial',
+    description: 'Assessoria em constituição e regularização de empresas, contratos societários, fusões e aquisições, recuperação judicial e extrajudicial, e demais questões que envolvam o direito empresarial.',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80',
   },
   {
     id: 5,
-    title: 'Trabalhista',
-    description: 'Defesa dos direitos do trabalhador e do empregador em ações trabalhistas, verbas rescisórias, acidentes de trabalho e questões previdenciárias.',
-    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80',
+    title: 'Direito Trabalhista',
+    description: 'Defesa dos direitos do trabalhador e do empregador em ações trabalhistas, verbas rescisórias, acidentes de trabalho, horas extras, reconhecimento de vínculo e questões previdenciárias.',
+    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80',
   },
 ];
 
