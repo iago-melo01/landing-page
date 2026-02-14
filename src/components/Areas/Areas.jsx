@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import './Areas.css';
 
@@ -37,19 +37,28 @@ const AREAS_DATA = [
 
 function getCardsPerView() {
   if (typeof window === 'undefined') return 3;
-  if (window.innerWidth <= 600) return 1;
+  if (window.innerWidth <= 600) return 1.2;
   if (window.innerWidth <= 900) return 2;
   return 3;
 }
 
 function Areas() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cardsPerView, setCardsPerView] = useState(3);
+  const [cardsPerView, setCardsPerView] = useState(() =>
+    typeof window !== 'undefined' ? getCardsPerView() : 3
+  );
   const totalCards = AREAS_DATA.length;
-  const maxIndex = Math.max(0, totalCards - cardsPerView);
+  const maxIndex = Math.max(
+    0,
+    cardsPerView < 2 ? totalCards - 1 : Math.floor(totalCards - cardsPerView)
+  );
   const carouselWidthPercent = (totalCards / cardsPerView) * 100;
   const cardWidthPercent = 100 / totalCards;
-  const translatePercent = currentIndex * cardWidthPercent;
+  const isLastCardWithPeek =
+    cardsPerView < 2 && currentIndex === maxIndex && totalCards > 1;
+  const translatePercent = isLastCardWithPeek
+    ? currentIndex * cardWidthPercent - 0.2 * cardWidthPercent
+    : currentIndex * cardWidthPercent;
 
   useEffect(() => {
     const updateCardsPerView = () => setCardsPerView(getCardsPerView());
@@ -62,19 +71,75 @@ function Areas() {
     setCurrentIndex((prev) => Math.min(prev, maxIndex));
   }, [maxIndex]);
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
-  };
-
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
-  };
+  }, [maxIndex]);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => Math.max(0, prev - 1));
+  }, []);
+
+  const currentIndexRef = useRef(currentIndex);
+  const maxIndexRef = useRef(maxIndex);
+  const directionRef = useRef('forward');
+  currentIndexRef.current = currentIndex;
+  maxIndexRef.current = maxIndex;
+
+  const inactivityTimerRef = useRef(null);
+  const resetInactivityTimer = useCallback(() => {
+    if (inactivityTimerRef.current) {
+      clearTimeout(inactivityTimerRef.current);
+    }
+    inactivityTimerRef.current = setTimeout(() => {
+      const idx = currentIndexRef.current;
+      const max = maxIndexRef.current;
+      if (idx >= max) {
+        directionRef.current = 'backward';
+        handlePrev();
+      } else if (idx <= 0) {
+        directionRef.current = 'forward';
+        handleNext();
+      } else {
+        if (directionRef.current === 'forward') {
+          handleNext();
+        } else {
+          handlePrev();
+        }
+      }
+      inactivityTimerRef.current = null;
+      resetInactivityTimer();
+    }, 4000);
+  }, [handleNext, handlePrev]);
+
+  useEffect(() => {
+    const events = ['mousedown', 'mousemove', 'keydown', 'touchstart', 'scroll', 'click'];
+    events.forEach((evt) => document.addEventListener(evt, resetInactivityTimer));
+    resetInactivityTimer();
+    return () => {
+      events.forEach((evt) => document.removeEventListener(evt, resetInactivityTimer));
+      if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+    };
+  }, [resetInactivityTimer]);
 
   const swipeHandlers = useSwipeable({
     onSwipedLeft: handleNext,
     onSwipedRight: handlePrev,
     trackMouse: true,
   });
+
+  const [expandedCards, setExpandedCards] = useState(new Set());
+
+  const toggleExpand = (areaId) => {
+    setExpandedCards((prev) => {
+      const next = new Set(prev);
+      if (next.has(areaId)) {
+        next.delete(areaId);
+      } else {
+        next.add(areaId);
+      }
+      return next;
+    });
+  };
 
   return (
     <section id="areas" className="areas">
@@ -130,9 +195,20 @@ function Areas() {
                 </div>
                 <div className="areas__card-content">
                   <h3 className="areas__card-title">{area.title}</h3>
-                  <p className="areas__card-description">{area.description}</p>
-                  <button type="button" className="areas__card-btn">
-                    SAIBA MAIS
+                  <p
+                    className={`areas__card-description ${expandedCards.has(area.id) ? 'areas__card-description--expanded' : ''}`}
+                  >
+                    {area.description}
+                  </p>
+                  <button
+                    type="button"
+                    className="areas__card-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleExpand(area.id);
+                    }}
+                  >
+                    {expandedCards.has(area.id) ? 'VER MENOS' : 'SAIBA MAIS'}
                   </button>
                 </div>
               </article>

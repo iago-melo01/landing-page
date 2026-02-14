@@ -81,7 +81,7 @@
 }
 
 .areas__card-image-wrapper {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 8px 8px 0 0;
   background-color: #f0f0f0;
@@ -124,6 +124,12 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.areas__card-description--expanded {
+  -webkit-line-clamp: unset;
+  display: block;
+  overflow: visible;
 }
 
 .areas__card-btn {
