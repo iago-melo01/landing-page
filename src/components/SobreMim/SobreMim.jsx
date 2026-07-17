@@ -7,7 +7,7 @@ function SobreMim() {
         <div className="sobre-mim__image-wrapper">
           <img
             src="/images/stenio_formal.jpeg"
-            alt="Stenio Veras - Advogado"
+            alt="Stênio Veras - Advogado"
             className="sobre-mim__image"
             loading="lazy"
           />
@@ -16,7 +16,7 @@ function SobreMim() {
           <h2 id="sobre-mim-title" className="sobre-mim__title">
             Sobre mim
           </h2>
-          <p className="sobre-mim__subtitle">Advogado - Stenio Veras</p>
+          <p className="sobre-mim__subtitle">Advogado - Stênio Veras</p>
           <div className="sobre-mim__separator" />
           <div className="sobre-mim__text">
             <p>

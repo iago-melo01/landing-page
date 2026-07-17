@@ -20,15 +20,16 @@ function Header() {
   return (
     <header className="header">
       <div className="header__container">
-        <a href="/" className="header__logo" aria-label="Stenio Veras Advocacia - Página inicial">
+        <a href="/" className="header__logo" aria-label="Stênio Veras Advocacia - Página inicial">
           <img
             src="/images/logo.png"
-            alt="Stenio Veras Advocacia"
+            alt="Stênio Veras Advocacia"
             className="header__logo-img"
           />
+          <span className="header__logo-divider" aria-hidden="true" />
           <div className="header__logo-text">
-            <span className="header__logo-title">STENIO VERAS</span>
-            <span className="header__logo-subtitle">ADVOCACIA</span>
+            <span className="header__logo-title">STÊNIO VERAS</span>
+            <span className="header__logo-subtitle">SOCIEDADE INDIVIDUAL DE ADVOCACIA</span>
           </div>
         </a>
 
